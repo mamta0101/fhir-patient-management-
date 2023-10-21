@@ -4,7 +4,8 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 
-
+//used twillio here for sending the real time otp , but it is free account so it has limitation only 
+//the registred phone number can get the otp .
 const twilioClient = twilio(
     'ACfc56d17b1a62bdabf54846fe0cf92e48',
     '68c207fb78368a7eab72eb4f5137a4a9'
@@ -56,7 +57,7 @@ async function sendOTPEmail(email, otp) {
         return false;
     }
 }
-
+//for better user expereince we can use google signup 
 const userController = {
     userSignup: async (req, res) => {
         try {

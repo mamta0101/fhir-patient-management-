@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 
 app.use('/', require('./routes/user'))
 app.use('/', require('./routes/patient'))
+app.use('/', require('./routes/uploadImage.js'))
 
 
 const PORT = process.env.PORT || 8081;

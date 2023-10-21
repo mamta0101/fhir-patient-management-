@@ -6,6 +6,10 @@ const patientSchema = new mongoose.Schema({
     dateOfBirth: { type: Date, required: true },
     gender: { type: String, required: true },
     fhirResponse: { type: Object },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const Patient = mongoose.model('Patient', patientSchema);
