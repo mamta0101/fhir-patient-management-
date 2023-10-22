@@ -53,6 +53,9 @@ Create a simplified Patient Management Dashboard using FHIR standards for health
 6. Update a patient record on the FHIR server:
    - PUT `http://localhost:8080/fhir/patient/{fhirId}` (with JSON in the body).
 
+6. Delete a patient record on the FHIR server:
+   - PUT `http://localhost:8080/fhir/patient/{fhirId}`
+
 ## User Experience
 1. User opens the portal.
 2. Portal asks for email ID & password.
