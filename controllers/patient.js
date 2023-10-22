@@ -38,7 +38,7 @@ const patientController = {
   getAllPatients: async (req, res) => {
     try {
 
-      const response = await axios.get(`${fhirBaseUrl}/Patient`);
+      //const response = await axios.get(`${fhirBaseUrl}/Patient`);
       //<--------------------------------incase of manepulating the mongodb Data -------------------------------------------------->
       const patients = await Patient.find()
         .populate('createdBy')
