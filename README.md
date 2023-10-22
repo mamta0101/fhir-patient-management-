@@ -29,8 +29,13 @@ Create a simplified Patient Management Dashboard using FHIR standards for health
    - Use a FHIR client library compatible with JavaScript, such as the HAPI FHIR library or FHIR.js, for API interactions.
 
 ## build command 
+# To start nodejs 
 1. npm i 
 2. start server #npm start 
+# To start fhir server
+1. Start Docker
+3. docker-compose up
+3. docker-compose down
 
 ## FHIR Server Setup Instructions
 1. Please follow the open-source link: [HAPI FHIR Server Starter](https://github.com/hapifhir/hapi-fhir-jpaserver-starter).

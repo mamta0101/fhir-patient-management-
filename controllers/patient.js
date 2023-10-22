@@ -6,7 +6,6 @@ const fhirBaseUrl = 'http://localhost:8080/fhir/';
 const patientController = {
   addPatient: async (req, res) => {
     try {
-
       const patientData = req.body;
       const dateOfBirth = new Date(patientData.birthDate);
       if (isNaN(dateOfBirth)) {
