@@ -41,9 +41,10 @@ const patientController = {
       const response = await axios.get(`${fhirBaseUrl}/Patient`);
       //<--------------------------------incase of manepulating the mongodb Data -------------------------------------------------->
       const patients = await Patient.find()
+        .populate('createdBy')
       res.status(200).json(patients)
 
-     // res.status(200).json(response.data);
+      // res.status(200).json(response.data);
     } catch (error) {
       res.status(500).json({ error: 'Failed to retrieve patient records' });
     }
@@ -52,15 +53,16 @@ const patientController = {
   //fetch patient detail by id
   getPatients: async (req, res) => {
     try {
-      const  fhirId  = req.params.fhirId;
-     // const response = await axios.get(`${fhirBaseUrl}/Patient/${fhirId}`);
+      const fhirId = req.params.fhirId;
+      // const response = await axios.get(`${fhirBaseUrl}/Patient/${fhirId}`);
 
       //<--------------------------------incase of manepulating the mongodb Data -------------------------------------------------->
-       const patient = await Patient.findById(fhirId)
-        if (!patient) {
+      const patient = await Patient.findById(fhirId)
+        .populate('createdBy')
+      if (!patient) {
         return res.status(404).json({ message: 'Patient data not found' });
       }
-        res.status(200).json(patient);
+      res.status(200).json(patient);
       // res.status(200).json(response.data);
     } catch (error) {
       res.status(500).json({ error: 'Failed to retrieve the patient record' });
@@ -70,29 +72,29 @@ const patientController = {
   // Update a patient record by ID
   updatePatient: async (req, res) => {
     try {
-      const  fhirId  = req.params.fhirId;
+      const fhirId = req.params.fhirId;
       const updatedPatientData = req.body;
-     // const response = await axios.put(`${fhirBaseUrl}/Patient/${fhirId}`, updatedPatientData);
-       // res.status(200).json(response.data);
+      // const response = await axios.put(`${fhirBaseUrl}/Patient/${fhirId}`, updatedPatientData);
+      // res.status(200).json(response.data);
       //<--------------------------------incase of manepulating the mongodb Data -------------------------------------------------->
-       const patient = await Patient.findById(fhirId)
-        if (!patient) {
+      const patient = await Patient.findById(fhirId)
+      if (!patient) {
         return res.status(404).json({ message: 'Patient data not found' });
       }
-        if (patient.createdBy != req.user) {
-          return res.status(403).send({
-              status: false,
-              message: 'You are not authorized to update this patient data',
-              data: {}
-          });
+      if (patient.createdBy != req.user) {
+        return res.status(403).send({
+          status: false,
+          message: 'You are not authorized to update this patient data',
+          data: {}
+        });
       }
-        const updatedPatient = await Patient.findByIdAndUpdate(
-          fhirId,
-          req.body,
-          { new: true }
+      const updatedPatient = await Patient.findByIdAndUpdate(
+        fhirId,
+        req.body,
+        { new: true }
       );
-       res.status(200).json(updatedPatient);
-   
+      res.status(200).json(updatedPatient);
+
     } catch (error) {
       res.status(500).json({ error: 'Failed to update the patient record' });
     }
@@ -101,7 +103,7 @@ const patientController = {
   // Delete a patient record  by ID
   deletepatient: async (req, res) => {
     try {
-      const  fhirId  = req.params.fhirId;
+      const fhirId = req.params.fhirId;
       // const response = await axios.delete(`${fhirBaseUrl}/Patient/${fhirId}`);
       // if (response) {
       //   res.status(200).json({ message: 'Patient record deleted successfully' });
@@ -109,16 +111,16 @@ const patientController = {
       //   res.status(404).json({ error: 'Patient record not found' });
       // }
       //<--------------------------------incase of manepulating the mongodb Data -------------------------------------------------->
-       const patient = await Patient.findById(fhirId)
-        if (!patient) {
+      const patient = await Patient.findById(fhirId)
+      if (!patient) {
         return res.status(404).json({ message: 'Patient data not found' });
       }
-        if (patient.createdBy != req.user) {
-          return res.status(403).send({
-              status: false,
-              message: 'You are not authorized to delete this patient data',
-              data: {}
-          });
+      if (patient.createdBy != req.user) {
+        return res.status(403).send({
+          status: false,
+          message: 'You are not authorized to delete this patient data',
+          data: {}
+        });
       }
       await Patient.findByIdAndDelete(fhirId);
 
