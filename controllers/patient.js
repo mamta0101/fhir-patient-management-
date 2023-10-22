@@ -42,8 +42,7 @@ const patientController = {
       //<--------------------------------incase of manepulating the mongodb Data -------------------------------------------------->
       const patients = await Patient.find()
         .populate('createdBy')
-      res.status(200).json(patients)
-
+      res.status(200).json(patients);
       // res.status(200).json(response.data);
     } catch (error) {
       res.status(500).json({ error: 'Failed to retrieve patient records' });
