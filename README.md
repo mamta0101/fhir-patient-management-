@@ -35,7 +35,7 @@ Create a simplified Patient Management Dashboard using FHIR standards for health
 # To start fhir server
 1. Start Docker
 3. docker-compose up
-3. docker-compose down
+
 
 ## FHIR Server Setup Instructions
 1. Please follow the open-source link: [HAPI FHIR Server Starter](https://github.com/hapifhir/hapi-fhir-jpaserver-starter).
