@@ -7,17 +7,12 @@ const patientController = {
   addPatient: async (req, res) => {
     try {
       const patientData = req.body;
-      const dateOfBirth = new Date(patientData.birthDate);
-      if (isNaN(dateOfBirth)) {
-        return res.status(400).json({ message: 'Invalid dateOfBirth format' });
-      }
       // const response = await axios.post(`${fhirBaseUrl}/Patient`, patientData);
       // res.status(201).json(response.data);
       //<--------------------------------save fhir adhere patient data intomongodb Data ------------------------------------------>
       const patient = new Patient({
         firstName: patientData.name[0].given[0],
         lastName: patientData.name[0].family,
-        dateOfBirth: dateOfBirth,
         gender: patientData.gender,
         fhirResponse: patientData,
         createdBy: req.user
