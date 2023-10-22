@@ -114,14 +114,15 @@ const patientController = {
       if (!patient) {
         return res.status(404).json({ message: 'Patient data not found' });
       }
-      if (patient.createdBy != req.user) {
+      if (patient.createdBy.toString() != req.user) {
         return res.status(403).send({
           status: false,
           message: 'You are not authorized to delete this patient data',
           data: {}
         });
       }
-      await Patient.findByIdAndDelete(fhirId);
+      await Patient.findByIdAndDelete(fhirId)
+      res.status(200).json({ message: 'Patient record deleted successfully' });
 
     } catch (error) {
       res.status(500).json({ error: 'Failed to delete the patient record' });
