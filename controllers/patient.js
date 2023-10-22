@@ -11,8 +11,8 @@ const patientController = {
       if (isNaN(dateOfBirth)) {
         return res.status(400).json({ message: 'Invalid dateOfBirth format' });
       }
-      const response = await axios.post(`${fhirBaseUrl}/Patient`, patientData);
-      res.status(201).json(response.data);
+      // const response = await axios.post(`${fhirBaseUrl}/Patient`, patientData);
+      // res.status(201).json(response.data);
       //<--------------------------------save fhir adhere patient data intomongodb Data ------------------------------------------>
       const patient = new Patient({
         firstName: patientData.name[0].given[0],
@@ -25,10 +25,10 @@ const patientController = {
 
       await patient.save();
 
-      // res.status(201).json({
-      //   message: 'Patient created successfully',
-      //   patient: patient,
-      // });
+      res.status(201).json({
+        message: 'Patient created successfully',
+        patient: patient,
+      });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
